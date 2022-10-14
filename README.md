@@ -1,4 +1,4 @@
-# NFKings移动端模板框架
+# 移动端模板框架
 此项目框架是基于[Taro](https://taro-docs.jd.com/taro/docs/,https://taro-ui.jd.com/#/docs/introduction)
 
 ## 项目目录结构
