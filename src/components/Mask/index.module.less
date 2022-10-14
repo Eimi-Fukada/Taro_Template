@@ -1,0 +1,59 @@
+.page {
+}
+.Modal {
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: all 0.5s;
+  pointer-events: none;
+  z-index: 1001;
+}
+.Modal__center {
+  align-items: center;
+  justify-content: center;
+}
+.Modal_content {
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+  transition: all (0.5 / 1.5);
+  width: 100%;
+}
+.Modal__hide {
+  pointer-events: none;
+  display: none;
+}
+.MMModal__hide {
+  pointer-events: none;
+
+  .MMModal_content,
+  .MMModal_mask {
+    pointer-events: none;
+  }
+}
+
+.Modal_mask {
+  pointer-events: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.Modal_mask_Opacity {
+  pointer-events: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+}
