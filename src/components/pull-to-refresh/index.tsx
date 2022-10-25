@@ -7,7 +7,7 @@ import classname from "classnames";
 import {
   IPullToRefreshProps,
   IPullToRefreshState,
-  PullToRefreshState
+  PullToRefreshState,
 } from "./const";
 import styles from "./index.modules.less";
 import { AtLoadMore } from "taro-ui";
@@ -26,7 +26,7 @@ export default class PullToRefresh extends PureComponent<
     height: 0,
     noMoreText: "",
     bottom: false,
-    showScrollbar: true
+    showScrollbar: true,
   };
 
   static getDerivedStateFromProps(
@@ -36,7 +36,7 @@ export default class PullToRefresh extends PureComponent<
     if (nextProps.state === PullToRefreshState.refreshing) {
       return {
         top: PullToRefresh.loadingHeight,
-        pulling: false
+        pulling: false,
       };
     }
 
@@ -45,7 +45,7 @@ export default class PullToRefresh extends PureComponent<
     }
 
     return {
-      top: 0
+      top: 0,
     };
   }
 
@@ -57,7 +57,7 @@ export default class PullToRefresh extends PureComponent<
       this.props.state === PullToRefreshState.refreshing
         ? PullToRefresh.loadingHeight
         : 0,
-    showNoMoreText: false
+    showNoMoreText: false,
     // scrollTop: undefined
   };
 
@@ -176,7 +176,7 @@ export default class PullToRefresh extends PureComponent<
   private async reviseScrollTop() {
     Taro.createSelectorQuery()
       .select("#InnerScrollView")
-      .scrollOffset(res => {
+      .scrollOffset((res) => {
         this.scrollTop = res.scrollTop;
       })
       .exec();
@@ -194,12 +194,16 @@ export default class PullToRefresh extends PureComponent<
     try {
       if (!scrollViewHeight || scrollViewHeight === 0) {
         const topViewRes = await selectRect("#PullToRefreshTop");
-        const { screenHeight } = await Taro.getSystemInfoSync();
+        // const { screenHeight } = await Taro.getSystemInfoSync();
+        /**
+         * @abstract H5上不要调用Taro.getSystemInfoSync() 获取可视区域高度，不准确
+         * */
+        const screenHeight = window.innerHeight;
         scrollViewHeight =
           screenHeight - topViewRes.top - (bottom ? topViewRes.bottom : 0);
       }
       this.setState({
-        scrollViewHeight
+        scrollViewHeight,
       });
     } catch (error) {
       console.log(error);
@@ -250,7 +254,7 @@ export default class PullToRefresh extends PureComponent<
     if (top > 0) {
       this.setState({
         pulling: true,
-        top: Math.min(top, PullToRefresh.loadingHeight)
+        top: Math.min(top, PullToRefresh.loadingHeight),
       });
     }
   }

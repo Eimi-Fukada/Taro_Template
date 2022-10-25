@@ -28,3 +28,52 @@ export function guid() {
     S4()
   );
 }
+
+/**
+ * 复制文本
+ * @param {string} text 复制的文本（同步数据，iOS上只要是异步数据怎么调用都是false）
+ */
+function fallbackCopyTextToClipboard(text: string) {
+  const input = document.createElement("input");
+  document.body.appendChild(input);
+  input.setAttribute("readonly", "readonly");
+  input.setAttribute("value", text);
+  input.select();
+  input.setSelectionRange(0, text.length);
+  console.log("copy", document.execCommand("copy"));
+  try {
+    document.execCommand("copy");
+  } catch (err) {}
+  document.body.removeChild(input);
+}
+export const CopyText = (text: string) => {
+  /**
+   * @abstract ios 上document.execCommand("copy")只要异步必然false
+   * @abstract navigator.clipboard只能在安全环境下使用，window.isSecureContext,localhost或者https下才存在这个对象
+   * @abstract 构建input如果遇到\n 这样的特殊字符是会自动忽略的
+   */
+  if (!navigator.clipboard) {
+    return fallbackCopyTextToClipboard(text);
+  }
+  const selection = document.createElement("input");
+  document.body.appendChild(selection);
+  selection.setAttribute("readonly", "readonly");
+  selection.setAttribute("value", text);
+  selection.select();
+  selection.setSelectionRange(0, text.length);
+  return navigator.clipboard
+    .writeText(text)
+    .then(
+      () =>
+        function () {
+          document.body.removeChild(selection);
+        }
+    )
+    .catch(
+      (error) =>
+        function () {
+          document.body.removeChild(selection);
+          console.log("error", error);
+        }
+    );
+};

@@ -1,7 +1,9 @@
 # 移动端模板框架
+
 此项目框架是基于[Taro](https://taro-docs.jd.com/taro/docs/,https://taro-ui.jd.com/#/docs/introduction)
 
 ## 项目目录结构
+
 ```js
 ├── config                   # 全局配置，包含路由，构建等配置
 ├── src
@@ -22,3 +24,7 @@
 ├── README.md
 └── package.json
 ```
+
+## 注意事项
+
+1. H5 上安全区域总是不准确，可以创建 2 个不用的 tabbar，在 app.config.ts 中写入 tabBar，Taro 会在外层包裹 id 为 container 的容器
