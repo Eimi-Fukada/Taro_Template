@@ -59,6 +59,7 @@
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.5",
     "i18next": "^21.10.0",
+    "prerender-spa-plugin": "^3.4.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-i18next": "^11.18.6",

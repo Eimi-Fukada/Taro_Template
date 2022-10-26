@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    NODE_ENV: '"production"',
+    NODE_ENV: '"production"'
   },
   defineConstants: {},
   mini: {},
@@ -23,29 +23,31 @@ module.exports = {
           hints: "warning",
           maxEntrypointSize: 1000000,
           maxAssetSize: 3000000,
-          assetFilter: function (assetFilename) {
+          assetFilter: function(assetFilename) {
             return assetFilename.endsWith(".js");
-          },
-        },
+          }
+        }
       });
 
       //   /**
-      //    * 如果 h5 端首屏加载时间过长，可以使用 @dreysolano/prerender-spa-plugin 插件预加载首页。
-      //    * prerender-spa-plugin 有bug，不兼容webpack5
+      //    * 如果 h5 端首屏加载时间过长，可以使用 prerender-spa-plugin 插件预加载首页。
+      //    * @dreysolano/prerender-spa-plugin bug更大
+      //    * prerender-spa-plugin 有bug，不兼容webpack5，需要去源码es6-> 60行改成compilerFS.mkdir，
+      //    * compilerFS.mkdirp已经被废弃了
       //    */
       const path = require("path");
-      const Prerender = require("@dreysolano/prerender-spa-plugin");
+      const Prerender = require("prerender-spa-plugin");
       const staticDir = path.join(__dirname, "..", "dist");
       chain.plugin("prerender").use(
         new Prerender({
           staticDir,
           routes: ["/"],
-          postProcess: (context) => ({
+          postProcess: context => ({
             ...context,
-            outputPath: path.join(staticDir, "index.html"),
-          }),
+            outputPath: path.join(staticDir, "index.html")
+          })
         })
       );
-    },
-  },
+    }
+  }
 };
