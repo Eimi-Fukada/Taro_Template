@@ -37,7 +37,6 @@
   "author": "",
   "dependencies": {
     "@babel/runtime": "^7.7.7",
-    "@dreysolano/prerender-spa-plugin": "^1.0.3",
     "@tarojs/components": "3.5.4",
     "@tarojs/helper": "3.5.4",
     "@tarojs/plugin-framework-react": "3.5.4",
@@ -59,7 +58,7 @@
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.5",
     "i18next": "^21.10.0",
-    "prerender-spa-plugin": "^3.4.0",
+    "prerender-spa-plugin": "git+https://github.com/Eimi-Fukada/Prerender-spa-plugin.git",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-i18next": "^11.18.6",
