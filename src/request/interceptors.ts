@@ -6,19 +6,15 @@ const customInterceptor = chain => {
 
   return chain.proceed(requestParams).then(res => {
     // 只要请求成功，不管返回什么状态码，都走这个回调
-    if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
-      return Promise.reject("请求资源不存在");
-    } else if (res.statusCode === HTTP_STATUS.BAD_GATEWAY) {
-      return Promise.reject("服务端出现了问题");
-    } else if (res.statusCode === HTTP_STATUS.FORBIDDEN) {
-      Taro.setStorageSync("Authorization", "");
-
-      return Promise.reject("没有权限访问");
-    } else if (res.statusCode === HTTP_STATUS.AUTHENTICATE) {
-      Taro.setStorageSync("Authorization", "");
-
-      return Promise.reject("需要鉴权");
-    } else if (res.statusCode === HTTP_STATUS.SUCCESS) {
+    if (res.data.code === HTTP_STATUS.NOT_FOUND) {
+      return console.log("请求资源不存在");
+    } else if (res.data.code === HTTP_STATUS.BAD_GATEWAY) {
+      return console.log("服务端出现了问题");
+    } else if (res.data.code === HTTP_STATUS.FORBIDDEN) {
+      return console.log("没有权限访问");
+    } else if (res.data.code === HTTP_STATUS.AUTHENTICATE) {
+      Taro.removeStorageSync("Authorization");
+    } else if (res.data.code === HTTP_STATUS.SUCCESS) {
       return res.data;
     }
   });

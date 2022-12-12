@@ -1,6 +1,7 @@
 enum IconImageName {
   Right = "right",
-  Icon = "icon"
+  Error0 = "error0",
+  DefaultImage = "defaultImage"
 }
 
 export default IconImageName;

@@ -2,6 +2,7 @@ import IconImageName from "./const";
 
 const images = {
   [IconImageName.Right]: require("./images/right.png"),
-  [IconImageName.Icon]: require("./images/icon.png")
+  [IconImageName.Error0]: require("./images/error0.webp"),
+  [IconImageName.DefaultImage]: require("./images/defaultImage.webp")
 };
 export default images;

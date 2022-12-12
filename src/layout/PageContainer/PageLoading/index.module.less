@@ -1,0 +1,51 @@
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Luckiest Guy", cursive;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.textItem {
+  position: relative;
+  top: 20px;
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 80px;
+  color: #12aaa2;
+  animation: bounce 0.3s ease infinite alternate;
+  text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc,
+    0 5px 0 #ccc, 0 6px 0 transparent, 0 7px 0 transparent, 0 8px 0 transparent,
+    0 9px 0 transparent, 0 10px 10px rgba(0, 0, 0, 0.4);
+}
+@keyframes bounce {
+  100% {
+    top: -20px;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc,
+      0 5px 0 #ccc, 0 6px 0 transparent, 0 7px 0 transparent,
+      0 8px 0 transparent, 0 9px 0 transparent, 0 10px 10px rgba(0, 0, 0, 0.4);
+  }
+}
+.textItem:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.textItem:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.textItem:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.textItem:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.textItem:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.textItem:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.textItem:nth-child(8) {
+  animation-delay: 0.7s;
+}

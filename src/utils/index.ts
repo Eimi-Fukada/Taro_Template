@@ -9,13 +9,6 @@ import Taro, { nextTick } from "@tarojs/taro";
  */
 export const autobind = coreAutobind;
 
-/**
- * 延迟触发  多次提交，提交最后一次
- *
- * @export
- * @param {number} [time=10]
- * @returns {MethodDecorator}
- */
 export function debounce(time: number = 200): MethodDecorator {
   let st;
   return (_target, _name, descriptor: any) => {
@@ -27,6 +20,26 @@ export function debounce(time: number = 200): MethodDecorator {
       }, time);
     };
     return descriptor;
+  };
+}
+
+/**
+/**
+ * @param func
+ * @param wait
+ */
+export function debounceFn<T extends (...args: any) => any>(
+  fn: T,
+  delay = 300
+) {
+  let timer = null as any;
+  return (...args: Parameters<T>) => {
+    return new Promise<ReturnType<T>>(resolve => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+    });
   };
 }
 

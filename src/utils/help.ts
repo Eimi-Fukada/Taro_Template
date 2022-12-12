@@ -1,7 +1,3 @@
-export default function classnames(...style: any) {
-  return style;
-}
-
 /**
  * 生成唯一标识符
  *
@@ -65,15 +61,28 @@ export const CopyText = (text: string) => {
     .writeText(text)
     .then(
       () =>
-        function () {
+        function() {
           document.body.removeChild(selection);
         }
     )
     .catch(
-      (error) =>
-        function () {
+      error =>
+        function() {
           document.body.removeChild(selection);
           console.log("error", error);
         }
     );
 };
+
+/**
+ ** 判断是否是有刘海屏的iPhone
+ *
+ * @export
+ * @param {string} info 设备型号信息，Taro.getSystemInfoSync() | DeviceInfo.getDeviceId()(react-native-device-info库)
+ * @returns
+ */
+export function judgmentNewPhone() {
+  const device = navigator.userAgent;
+  const isNewPhone = !!device.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+  return isNewPhone;
+}
