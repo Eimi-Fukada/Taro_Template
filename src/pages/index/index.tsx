@@ -4,7 +4,7 @@ import styles from "./index.module.less";
 import { IndexProps } from "./const";
 import Taro from "@tarojs/taro";
 import { routeNames } from "~/routes";
-import Navigation from "~/components/navigation";
+import Navigation from "~/components/Navigation";
 import { get } from "~/request/http";
 
 const Component: FC<IndexProps> = () => {
