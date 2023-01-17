@@ -57,4 +57,9 @@ export interface NavigationProps extends ComponentProps {
    * 导航条样式
    */
   contentStyle?: CSSProperties;
+
+  /**
+   * 导航title样式
+   */
+  titleStyle?: CSSProperties;
 }

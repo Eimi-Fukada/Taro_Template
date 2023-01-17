@@ -3,7 +3,8 @@ import { FC, memo, PropsWithChildren, useMemo } from "react";
 import Taro, {
   getCurrentPages,
   getMenuButtonBoundingClientRect,
-  getSystemInfoSync
+  getSystemInfoSync,
+  useRouter
 } from "@tarojs/taro";
 import classnames from "classnames";
 import styles from "./index.module.less";
@@ -30,18 +31,19 @@ export const navigationHeight = stateHeigth;
 const Component: FC<PropsWithChildren<NavigationProps>> = props => {
   const {
     title,
-    backVisible,
+    backVisible = true,
     renderLeftContent,
     renderRightContent,
     beforeNavBack,
     contentClass,
-    contentStyle
+    contentStyle,
+    titleStyle
   } = props;
+  const path = useRouter().path;
 
   const rootStyle = useMemo(
     () => ({
       // height: navigationHeight,
-      borderBottom: "0.5px solid transparent",
       ...props.style
     }),
     [props.style]
@@ -53,21 +55,26 @@ const Component: FC<PropsWithChildren<NavigationProps>> = props => {
 
   async function hanldeNavBack() {
     let result = true;
+    const normal = window.sessionStorage.getItem("normal");
     if (beforeNavBack) {
       result = await beforeNavBack();
     }
     if (result) {
-      Taro.navigateBack({ delta: 1 });
+      if (!normal) {
+        Taro.redirectTo({ url: "/" });
+      } else {
+        Taro.navigateBack({ delta: 1 });
+      }
     }
   }
 
   const renderGoBack = () => {
     // const { length } = getCurrentPages();
-    /** 浏览器上如果刷新就会导致获取的路由length变成1 */
     return (
+      // length > 1 &&
       backVisible && (
         <View className={styles.goback} onClick={hanldeNavBack}>
-          <Image src={images.right} className={styles.leftIcon} />
+          <Image src={images.left} className={styles.leftIcon} />
         </View>
       )
     );
@@ -82,18 +89,19 @@ const Component: FC<PropsWithChildren<NavigationProps>> = props => {
         className={className}
         style={{
           zIndex: 1000,
-          paddingTop: 0,
           ...contentStyle
         }}
       >
-        <View className={styles.content} style={{ height: stateHeigth }}>
+        <View className={styles.content}>
           {renderLeftContent ? (
-            <View className={styles.leftBox}>{renderLeftContent}</View>
+            <View className={styles.leftBox}>{props.renderLeftContent}</View>
           ) : (
             renderGoBack()
           )}
 
-          <View className={styles.title}>{props.children || title}</View>
+          <View className={styles.title} style={titleStyle}>
+            {props.children || title}
+          </View>
           <View className={styles.rightBox}>{renderRightContent}</View>
         </View>
       </View>
