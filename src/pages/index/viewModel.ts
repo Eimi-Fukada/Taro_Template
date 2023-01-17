@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-export function ViewModal() {
+export function ViewModel() {
   /** write your js */
-  const [state, setState] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   return {
-    state,
-    setState
+    currentIndex,
+    setCurrentIndex
   };
 }

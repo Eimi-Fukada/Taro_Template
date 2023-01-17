@@ -25,6 +25,22 @@ module.exports = {
           maxAssetSize: 3000000,
           assetFilter: function(assetFilename) {
             return assetFilename.endsWith(".js");
+          },
+          plugin: {
+            install: {
+              plugin: require("compression-webpack-plugin"),
+              args: [
+                {
+                  test: /\.(js|css)/,
+                  filename: "[path][base].gz",
+                  test: /\.(js|css)(\?.*)?$/i,
+                  algorithm: "gzip",
+                  threshold: 10240,
+                  minRatio: 0.8
+                  // deleteOriginalAssets: false
+                }
+              ]
+            }
           }
         }
       });

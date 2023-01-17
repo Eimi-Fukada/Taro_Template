@@ -1,12 +1,11 @@
+import { useState } from "react";
 
-import { useState } from 'react';
-
-export function ViewModal() {
+export function ViewModel() {
   /** write your js */
   const [state, setState] = useState(false);
 
   return {
     state,
-    setState,
+    setState
   };
 }
