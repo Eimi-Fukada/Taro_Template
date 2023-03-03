@@ -1,12 +1,15 @@
-import React, { memo, useState, FC } from "react";
+import React, { memo, useState, FC, useContext } from "react";
 import styles from "./index.module.less";
 import { View } from "@tarojs/components";
 import { TabsProps } from "./const";
 import Taro from "@tarojs/taro";
+import { ExploreContext } from "..";
 
 const Component: FC<TabsProps> = props => {
   const { onChange, currentIndex } = props;
   const tabs = ["firstTab", "SecondTab"];
+  const { contextState, dispatch } = useContext(ExploreContext);
+  console.log("contextState", contextState);
 
   return (
     <View className={styles.page}>
