@@ -16,6 +16,8 @@ const customInterceptor = chain => {
       Taro.removeStorageSync("Authorization");
     } else if (res.data.code === HTTP_STATUS.SUCCESS) {
       return res.data;
+    } else {
+      return res.data;
     }
   });
 };
