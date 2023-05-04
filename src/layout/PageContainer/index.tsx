@@ -15,7 +15,7 @@ const Component: FC<PageContainerProps> = props => {
       <View className={styles.page} {...rest}>
         {loading ? <PageLoading /> : props.children}
 
-        {judgmentNewPhone() && !noPlace && (
+        {judgmentNewPhone() && noPlace && (
           <View className={styles.spacingIphone} />
         )}
       </View>
