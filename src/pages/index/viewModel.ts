@@ -1,15 +1,9 @@
-import { useReducer, useState } from "react";
-
-export interface InitState {
-  isLiked: boolean;
-  num: number;
-  commentNum: number;
-  inputValue: string;
-}
+import { useReducer, useState } from 'react'
+import { InitState } from './const'
 
 export function ViewModel() {
   /** write your js */
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   /**
    * useReducer + useContext
@@ -18,23 +12,23 @@ export function ViewModel() {
     isLiked: true,
     num: 5,
     commentNum: 8,
-    inputValue: ""
-  };
+    inputValue: '',
+  }
   const reducer = (oldState, action) => {
     switch (action.type) {
-      case "handleLove":
+      case 'handleLove':
         return {
           ...oldState,
           isLiked: !action.value,
-          num: action.value ? oldState.num - 1 : oldState.num + 1
-        };
-      case "addComments":
-        return { ...oldState, inputValue: "" };
+          num: action.value ? oldState.num - 1 : oldState.num + 1,
+        }
+      case 'addComments':
+        return { ...oldState, inputValue: '' }
       default:
-        return oldState;
+        return oldState
     }
-  };
-  const [contextState, dispatch] = useReducer(reducer, initState);
+  }
+  const [contextState, dispatch] = useReducer(reducer, initState)
   /**
    * useReducer + useContext
    */
@@ -43,6 +37,6 @@ export function ViewModel() {
     currentIndex,
     setCurrentIndex,
     contextState,
-    dispatch
-  };
+    dispatch,
+  }
 }

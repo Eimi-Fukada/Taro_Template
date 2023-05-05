@@ -1,13 +1,27 @@
 {
-  "extends": ["taro/react"],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "taro/react", 
+    "react",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["prettier", "react"],
   "rules": {
-    "react/jsx-uses-react": "off",
+
     "react/react-in-jsx-scope": "off",
     "jsx-quotes":"off",
     "import/no-commonjs":"off",
     "import/first":"off",
     "react/jsx-boolean-value": "off",
     "@typescript-eslint/no-unused-vars":"off",
-    "react/sort-comp":"off"
+    "react/sort-comp":"off",
+    "no-undef":"off",
+    "react/no-unknown-property":"off"
   }
 }
