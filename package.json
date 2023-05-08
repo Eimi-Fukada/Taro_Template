@@ -9,7 +9,11 @@
     "css": "less"
   },
   "scripts": {
-    "start": "npm run build:weapp -- --watch",
+    "dev": "cross-env REACT_APP_ENV=dev npm run build:weapp -- --watch",
+    "test": "cross-env REACT_APP_ENV=test npm run build:weapp -- --watch",
+    "pre": "cross-env REACT_APP_ENV=pre npm run build:weapp -- --watch",
+    "prod": "cross-env REACT_APP_ENV=prod npm run build:weapp -- --watch",
+    "build": "cross-env REACT_APP_ENV=prod taro build --type weapp",
     "build:weapp": "taro build --type weapp",
     "build:swan": "taro build --type swan",
     "build:alipay": "taro build --type alipay",
@@ -55,6 +59,7 @@
     "base-64": "^1.0.0",
     "classnames": "^2.3.1",
     "core-decorators": "^0.20.0",
+    "cross-env": "^7.0.3",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.5",
     "i18next": "^21.10.0",

@@ -2,15 +2,14 @@ import { FC, memo } from 'react'
 import { View, Text, Button, Image } from '@tarojs/components'
 import styles from './index.module.less'
 import { ExploreContext, IndexProps } from './const'
-import Taro from '@tarojs/taro'
-import { routeNames } from '~/routes'
 import Navigation from '~/components/Navigation'
 import PageContainer from '~/layout/PageContainer'
-import { ViewModel } from './viewModel'
+import { viewModel } from './viewModel'
 import Tabs from './tabs'
+import apis from '~/request'
 
 const Component: FC<IndexProps> = () => {
-  const { currentIndex, setCurrentIndex, contextState, dispatch } = ViewModel()
+  const { currentIndex, setCurrentIndex, contextState, dispatch } = viewModel()
   const templateImage =
     'https://twmw.oss-ap-southeast-1.aliyuncs.com/aliyun-oss/1-2022-12-23-16%3A56%3A47.webp'
 
@@ -27,10 +26,7 @@ const Component: FC<IndexProps> = () => {
           <View className={styles.textBox}>
             <Text className={styles.text}>Hello world!</Text>
           </View>
-          <Button onClick={() => Taro.navigateTo({ url: routeNames.home })} className={styles.btn}>
-            Click Me
-          </Button>
-          <View className={styles.box} />
+          <Button className={styles.btn}>Click Me</Button>
         </View>
       </ExploreContext.Provider>
     </PageContainer>

@@ -39,12 +39,12 @@ const Component: FC<PropsWithChildren<NavigationProps>> = (props) => {
     contentClass,
     contentStyle,
     titleStyle,
-    place = true,
   } = props
 
   const rootStyle = useMemo(
     () => ({
-      height: !place ? 0 : navigationHeight,
+      // 是否占据高度
+      // height: !place ? 0 : navigationHeight,
       ...props.style,
     }),
     [props.style]

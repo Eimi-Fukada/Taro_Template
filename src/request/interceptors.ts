@@ -1,30 +1,30 @@
-import { HTTP_STATUS } from "./config";
-import Taro from "@tarojs/taro";
+import Taro from '@tarojs/taro'
 
-const customInterceptor = chain => {
-  const requestParams = chain.requestParams;
+/** 支持路径参数替换的拦截器 */
+const urlArgsHandler = {
+  request: {
+    onFulfilled: (config: Taro.Chain) => {
+      const requestParams = config.requestParams
+      const { data, url, args, params } = requestParams
+      return config.proceed(requestParams).then((response: Taro.request.SuccessCallbackResult) => {
+        if (data) {
+          const lostParams: string[] = []
+          const replacedUrl = url!.replace(/\{([^}]+)\}/g, (res, arg: string) => {
+            if (!data[arg]) {
+              lostParams.push(arg)
+            }
+            // 这里吧args里面的参数拼到路径后面
+            return args[arg] as string
+          })
+          if (lostParams.length) {
+            return Promise.reject(new Error('在args中找不到对应的路径参数'))
+          }
+          return { ...response, url: replacedUrl }
+        }
+        return response
+      })
+    },
+  },
+}
 
-  return chain.proceed(requestParams).then(res => {
-    // 只要请求成功，不管返回什么状态码，都走这个回调
-    if (res.data.code === HTTP_STATUS.NOT_FOUND) {
-      return console.log("请求资源不存在");
-    } else if (res.data.code === HTTP_STATUS.BAD_GATEWAY) {
-      return console.log("服务端出现了问题");
-    } else if (res.data.code === HTTP_STATUS.FORBIDDEN) {
-      return console.log("没有权限访问");
-    } else if (res.data.code === HTTP_STATUS.AUTHENTICATE) {
-      Taro.removeStorageSync("Authorization");
-    } else if (res.data.code === HTTP_STATUS.SUCCESS) {
-      return res.data;
-    } else {
-      return res.data;
-    }
-  });
-};
-
-// Taro 提供了两个内置拦截器
-// logInterceptor - 用于打印请求的相关信息
-// timeoutInterceptor - 在请求超时时抛出错误。
-const interceptors = [customInterceptor, Taro.interceptors.logInterceptor];
-
-export default interceptors;
+export default urlArgsHandler

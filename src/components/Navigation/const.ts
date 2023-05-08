@@ -58,10 +58,4 @@ export interface NavigationProps extends ComponentProps {
    * 导航title样式
    */
   titleStyle?: CSSProperties
-  /**
-   * 是否占据高度
-   *
-   * @default true
-   */
-  place?: boolean
 }

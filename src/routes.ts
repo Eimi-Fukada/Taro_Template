@@ -4,8 +4,7 @@
  */
 
 export const routeNames = {
-  index: "/pages/index/index",
-  home: "/pages/home/index"
-};
+  index: '/pages/index/index',
+}
 
-export const tabbar = [];
+export const tabbar = []
