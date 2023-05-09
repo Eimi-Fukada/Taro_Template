@@ -1,8 +1,10 @@
 enum IconImageName {
-  Right = "right",
-  Error0 = "error0",
-  Left = "left",
-  DefaultImage = "defaultImage"
+  Right = 'right',
+  Error = 'error',
+  Left = 'left',
+  DefaultImage = 'defaultImage',
+  PaySuccess = 'paySuccess',
+  PayFail = 'payFail',
 }
 
-export default IconImageName;
+export default IconImageName

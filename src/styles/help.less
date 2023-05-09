@@ -1,0 +1,12 @@
+/**
+ * 文字多行显示。。。
+ */
+.textEllipsis(@lineNum) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @lineNum;
+  /* autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+}

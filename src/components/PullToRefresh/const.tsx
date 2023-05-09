@@ -3,7 +3,6 @@ import { ReactNode } from 'react'
 export interface IPullToRefreshProps {
   /**
    * 状态
-   *
    * @type {PullToRefreshState}
    * @memberof IPullToRefreshProps
    */
@@ -11,7 +10,6 @@ export interface IPullToRefreshProps {
 
   /**
    * 没有更多
-   *
    * @type {boolean}
    * @memberof IPullToRefreshProps
    */
@@ -19,47 +17,54 @@ export interface IPullToRefreshProps {
 
   /**
    * 没有更多的文案
+   * @type {ReactNode}
    */
   noMoreText?: ReactNode
 
   /**
    * 没有更多的文案延迟显示时间
-   *
    * 毫秒
-   *
    * @description 用于配合瀑布流组件内部100毫秒的渲染延迟
    */
   noMoreTextDelay?: number
 
+  /**
+   * 无数据状态渲染内容
+   * @type {ReactNode}
+   */
   empty?: ReactNode
 
   /**
    * 渲染底部 低于无更多
-   *
+   * @type {ReactNode}
    * @memberof IPullToRefreshProps
    */
   renderFooter?: ReactNode
 
   /**
    * 容器高度
-   *
+   * @type {number}
    * @description 下拉刷新必须指定一个高度。
    * 大部分情况下组件内会自动根据距离顶部距离计算出容器剩余高度作为组件高度。
    * 但是有些特定情况。造成两个滚动条的时候。你可能需要手动指定容器高度
    */
   height?: number
 
-  /** 是否计算底部距离 */
+  /** 是否计算底部距离
+   * @type {boolean}
+   */
   bottom?: boolean
 
   /**
    * 是否启用下拉刷新
+   * @type {boolean}
    * @default true
    */
   enablePull?: boolean
 
   /**
    * 是否显示滚动条
+   * @type {boolean}
    * @default true
    */
   showScrollbar?: boolean
@@ -98,13 +103,13 @@ export enum PullToRefreshState {
   /**
    * 添加中
    */
-  pushing
+  pushing,
 }
 
 export interface IPullRefreshHookRefreshParams {
   /**
    * 刷新时是否清空旧数组
-   *
+   * @type {boolean}
    * @default false
    */
   clearList?: boolean

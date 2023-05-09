@@ -1,23 +1,21 @@
-import React, { memo, useMemo, FC } from "react";
-import styles from "./index.module.less";
-import { Image } from "@tarojs/components";
-import { PictureProps } from "./const";
-import Taro from "@tarojs/taro";
-import classnames from "classnames";
-import { useDoubleClick } from "~/hooks/useDoubleClick";
-import ImageLoad from "../ImageLoad";
+import React, { memo, useMemo, FC } from 'react'
+import styles from './index.module.less'
+import { PictureProps } from './const'
+import classnames from 'classnames'
+import { useDoubleClick } from '~/hooks/useDoubleClick'
+import ImageLoad from '../ImageLoad'
 
-const Component: FC<PictureProps> = props => {
-  const { src, onClick, onDoubleClick, mode = "scaleToFill" } = props;
+const Component: FC<PictureProps> = (props) => {
+  const { src, onClick, onDoubleClick, mode = 'scaleToFill' } = props
 
-  const buttonOnDoubleClick = useDoubleClick();
+  const buttonOnDoubleClick = useDoubleClick()
 
   const rootStyle = useMemo(
     () => ({
-      ...props.style
+      ...props.style,
     }),
     [props.style]
-  );
+  )
 
   return (
     <ImageLoad
@@ -30,8 +28,8 @@ const Component: FC<PictureProps> = props => {
       className={classnames(styles.imageBox, props.className)}
       mode={mode}
     />
-  );
-};
+  )
+}
 
-const Picture = memo(Component);
-export default Picture;
+const Picture = memo(Component)
+export default Picture

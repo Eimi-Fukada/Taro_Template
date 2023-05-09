@@ -93,3 +93,20 @@ export function getisNewIphone() {
   }
   return isNewPhone
 }
+
+/**
+ *  手机号校验
+ * @param {*} str 手机号
+ */
+export function isPhone(str: string) {
+  const reg = /^[1][2, 3,4,5, 6 ,7,8, 9][0-9]{9}$/
+  return reg.test(str)
+}
+
+/**
+ * 手机号加密显示
+ * @param phone 手机号
+ */
+export function encryptPhone(phone: string) {
+  return phone.substr(0, 4) + '****' + phone.substr(7)
+}

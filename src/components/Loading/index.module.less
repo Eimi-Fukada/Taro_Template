@@ -1,12 +1,6 @@
-@import "../../styles/theme.less";
-
 .loader {
-  position: relative;
-
-  .loaders {
-    position: absolute;
-    top: calc(50% - 20px);
-    left: calc(50% - 20px);
+  .box {
+    animation: animate 0.5s linear infinite;
   }
 
   @keyframes loader {
@@ -18,30 +12,19 @@
     }
   }
 
-  .box {
-    width: 50px;
-    height: 50px;
-    background: @primary-color;
-    animation: animate 0.5s linear infinite;
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 3px;
-  }
-
   @keyframes animate {
     17% {
-      border-bottom-right-radius: 3px;
+      border-bottom-right-radius: 10%;
     }
     25% {
-      transform: translateY(9px) rotate(22.5deg);
+      transform: translateY(10%) rotate(22.5deg);
     }
     50% {
-      transform: translateY(18px) scale(1, 0.9) rotate(45deg);
-      border-bottom-right-radius: 40px;
+      transform: translateY(20%) scale(1, 0.9) rotate(45deg);
+      border-bottom-right-radius: 80%;
     }
     75% {
-      transform: translateY(9px) rotate(67.5deg);
+      transform: translateY(10%) rotate(67.5deg);
     }
     100% {
       transform: translateY(0) rotate(90deg);
@@ -49,15 +32,11 @@
   }
 
   .shadow {
-    width: 50px;
-    height: 5px;
     background: #000;
     opacity: 0.1;
-    position: absolute;
-    top: 59px;
-    left: 0;
     border-radius: 50%;
     animation: shadow 0.5s linear infinite;
+    margin-top: 10px;
   }
 
   @keyframes shadow {
