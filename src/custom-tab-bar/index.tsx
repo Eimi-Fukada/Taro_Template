@@ -1,16 +1,10 @@
-import React, { FC, memo, useState } from "react";
-import styles from "./index.module.less";
-import { View } from "@tarojs/components";
-import Taro from "@tarojs/taro";
-import useTabbar from "./store";
+import React, { FC, memo } from 'react'
+import styles from './index.module.less'
+import { View, Image } from '@tarojs/components'
+import useTabbar from './store'
 
 const Component: FC = memo(() => {
-  const { data, current } = useTabbar();
-  const [redDot, setRedDot] = useState(0);
-
-  async function handleClick(url: string) {
-    Taro.redirectTo({ url });
-  }
+  const { data, current, handleClick } = useTabbar()
 
   return (
     <View className={styles.heightBox}>
@@ -19,27 +13,22 @@ const Component: FC = memo(() => {
           {data.map((value, index) => (
             <View
               key={value.url + index}
-              className={
-                current === index ? styles.contentSelected : styles.content
-              }
-              onClick={() => handleClick(value.url)}
+              className={current === index ? styles.contentSelected : styles.content}
+              onClick={() => handleClick(value.url, index)}
             >
-              <View
+              <Image
                 className={styles.image}
-                style={{
-                  backgroundImage: `url(${
-                    current === index ? value.imageSelected : value.image
-                  })`
-                }}
+                src={current === index ? value.imageSelected : value.image}
               />
-              {redDot > 0 && index === 2 && <View className={styles.redDot} />}
+              {!!value.redHot && <View className={styles.redDot} />}
+              {!!value.count && <View className={styles.count} />}
             </View>
           ))}
         </View>
       </View>
     </View>
-  );
-});
+  )
+})
 
-const TabBar = memo(Component);
-export default TabBar;
+const TabBar = memo(Component)
+export default TabBar

@@ -1,3 +1,4 @@
+import Taro from '@tarojs/taro'
 /**
  * 不管是redux还是全局上下文都解决不了H5刷新页面数据丢失的问题，最好的方法是用sessionStorage，或者是localStorage，
  * 需要根据情形使用，判断关闭窗口后下次打开时候还需要这部分缓存数据

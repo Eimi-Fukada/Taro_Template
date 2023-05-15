@@ -7,4 +7,5 @@ export default defineAppConfig({
     navigationBarTextStyle: 'black',
     navigationStyle: 'custom',
   },
+  lazyCodeLoading: 'requiredComponents',
 })

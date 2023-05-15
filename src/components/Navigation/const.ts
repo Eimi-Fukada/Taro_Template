@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react'
+import { CSSProperties, ReactNode } from 'react'
 import { ComponentProps } from '~/styles/commonStyle'
 
 export enum NavigationType {
@@ -29,17 +29,10 @@ export interface NavigationProps extends ComponentProps {
   /**
    * 渲染左边的元素
    *
-   * @type {(JSX.Element | string)}
+   * @type {(ReactNode)}
    * @memberof INavigationProps
    */
-  renderLeftContent?: JSX.Element
-  /**
-   * 渲染右边的元素
-   *
-   * @type {(JSX.Element | string)}
-   * @memberof INavigationProps
-   */
-  renderRightContent?: JSX.Element
+  renderLeftContent?: ReactNode
   /**
    * 点击返回之前处理函数
    *
@@ -58,4 +51,10 @@ export interface NavigationProps extends ComponentProps {
    * 导航title样式
    */
   titleStyle?: CSSProperties
+  /**
+   * 是否占据高度
+   *
+   * @default true
+   */
+  place?: boolean
 }

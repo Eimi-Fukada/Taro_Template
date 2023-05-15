@@ -34,20 +34,20 @@ const Component: FC<PropsWithChildren<NavigationProps>> = (props) => {
   const {
     title,
     renderLeftContent,
-    renderRightContent,
     beforeNavBack,
     contentClass,
     contentStyle,
     titleStyle,
+    place = true,
   } = props
 
   const rootStyle = useMemo(
     () => ({
       // 是否占据高度
-      // height: !place ? 0 : navigationHeight,
+      height: !place ? 0 : navigationHeight,
       ...props.style,
     }),
-    [props.style]
+    [props.style, place]
   )
 
   const className = useMemo(() => {
@@ -56,16 +56,11 @@ const Component: FC<PropsWithChildren<NavigationProps>> = (props) => {
 
   async function hanldeNavBack() {
     let result = true
-    const normal = window.sessionStorage.getItem('normal')
     if (beforeNavBack) {
       result = await beforeNavBack()
     }
     if (result) {
-      if (!normal) {
-        Taro.redirectTo({ url: '/' })
-      } else {
-        Taro.navigateBack({ delta: 1 })
-      }
+      Taro.navigateBack({ delta: 1 })
     }
   }
 
@@ -86,20 +81,19 @@ const Component: FC<PropsWithChildren<NavigationProps>> = (props) => {
         className={className}
         style={{
           zIndex: 1000,
+          paddingTop: isWeapp ? statusBarHeight : 0,
           ...contentStyle,
         }}
       >
-        <View className={styles.content}>
-          {renderLeftContent ? (
-            <View className={styles.leftBox}>{props.renderLeftContent}</View>
+        <View className={styles.content} style={{ height: stateHeigth }}>
+          {renderLeftContent === false ? null : renderLeftContent ? (
+            <View className={styles.leftBox}>{renderLeftContent}</View>
           ) : (
             renderGoBack()
           )}
-
           <View className={styles.title} style={titleStyle}>
             {props.children || title}
           </View>
-          <View className={styles.rightBox}>{renderRightContent}</View>
         </View>
       </View>
     </View>
