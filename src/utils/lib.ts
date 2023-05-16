@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import coreAutobind from 'core-decorators/lib/autobind'
 import Taro, { nextTick } from '@tarojs/taro'
 
@@ -8,6 +9,48 @@ import Taro, { nextTick } from '@tarojs/taro'
  * @returns
  */
 export const autobind = coreAutobind
+
+export function debounceFn(time: number = 200): MethodDecorator {
+  let st
+  return (_target, _name, descriptor: any) => {
+    const fun = descriptor.value
+    descriptor.value = function(...args) {
+      clearTimeout(st)
+      st = setTimeout(() => {
+        fun.apply(this, args)
+      }, time)
+    }
+    return descriptor
+  }
+}
+
+/**
+ * 特殊限流，最后一次的函数肯定触发
+ *
+ * @export
+ * @param {number} [time=200]
+ * @returns {MethodDecorator}
+ */
+export function throttleLast(time: number = 200): MethodDecorator {
+  let date = new Date()
+  let stLast
+  return (_target, _name, descriptor: any) => {
+    const fun = descriptor.value
+    descriptor.value = function(...args) {
+      const now = new Date()
+      clearTimeout(stLast)
+      if (now.getTime() - date.getTime() > time) {
+        date = now
+        fun.apply(this, args)
+      } else {
+        stLast = setTimeout(() => {
+          fun.apply(this, args)
+        }, time)
+      }
+    }
+    return descriptor
+  }
+}
 
 /**
  * 防抖 应用于hook写法，类写法用装饰器@debounce(wait) 适用与input
@@ -32,7 +75,10 @@ export function debounce<T extends (...args: any) => any>(fn: T, delay = 300) {
  * @param interval
  */
 /* 函数节流 */
-export function throttle<T extends (...args: any) => any>(fn: T, interval = 300) {
+export function throttle<T extends (...args: any) => any>(
+  fn: T,
+  interval = 300
+) {
   let enterTime = 0 // 触发的时间
   const gapTime = interval // 间隔时间，如果interval不传，则默认300ms
   return function(this: unknown, ...args: Parameters<T>) {
@@ -64,15 +110,17 @@ export function sleep(time = 1000) {
  * @returns
  */
 export function selectRect(name: string) {
-  return new Promise<Taro.NodesRef.BoundingClientRectCallbackResult>((resolve, reject) => {
-    nextTick(() => {
-      const query = Taro.createSelectorQuery()
-      query
-        .select(name)
-        .boundingClientRect((res) => {
-          resolve(res as Taro.NodesRef.BoundingClientRectCallbackResult)
-        })
-        .exec()
-    })
-  })
+  return new Promise<Taro.NodesRef.BoundingClientRectCallbackResult>(
+    (resolve, reject) => {
+      nextTick(() => {
+        const query = Taro.createSelectorQuery()
+        query
+          .select(name)
+          .boundingClientRect((res) => {
+            resolve(res as Taro.NodesRef.BoundingClientRectCallbackResult)
+          })
+          .exec()
+      })
+    }
+  )
 }

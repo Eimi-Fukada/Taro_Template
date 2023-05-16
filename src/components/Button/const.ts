@@ -1,7 +1,9 @@
 import { ReactNode } from 'react'
 import { ComponentProps } from '../../styles/commonStyle'
 
-export interface ButtonProps extends ComponentProps, React.PropsWithChildren<object> {
+export interface ButtonProps
+  extends ComponentProps,
+    React.PropsWithChildren<object> {
   /**
    * 加载状态
    * @description 默认不自带loading动画

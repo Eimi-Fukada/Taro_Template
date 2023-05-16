@@ -11,7 +11,20 @@ function S4() {
 }
 
 export function guid() {
-  return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4()
+  return (
+    S4() +
+    S4() +
+    '-' +
+    S4() +
+    '-' +
+    S4() +
+    '-' +
+    S4() +
+    '-' +
+    S4() +
+    S4() +
+    S4()
+  )
 }
 
 /**
@@ -28,7 +41,9 @@ function fallbackCopyTextToClipboard(text: string) {
   console.log('copy', document.execCommand('copy'))
   try {
     document.execCommand('copy')
-  } catch (err) {}
+  } catch (err) {
+    console.log(err)
+  }
   document.body.removeChild(input)
 }
 export const CopyText = (text: string) => {
@@ -85,7 +100,9 @@ export function judgmentNewPhone() {
 export function getisNewIphone() {
   const { model, screenWidth, screenHeight } = Taro.getSystemInfoSync()
 
-  let isNewPhone = /(iPhone (X|11|12|13|14|15|16))|(unknown.*iPhone)/.test(model)
+  let isNewPhone = /(iPhone (X|11|12|13|14|15|16))|(unknown.*iPhone)/.test(
+    model
+  )
 
   if (isNewPhone) {
     // 判断是否为iphone SE,1334 x 750 像素分辨率

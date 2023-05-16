@@ -55,12 +55,14 @@ async function uploadAliyun(fileList: FileProps[]) {
       form.append('success_action_status', '200')
       form.append('file', file)
 
-      return fetch(host, { method: 'post', body: form, mode: 'cors' }).then(({ status }) => {
-        if (status === 200) {
-          return `${host}/${filesFolderName}/${key}`
+      return fetch(host, { method: 'post', body: form, mode: 'cors' }).then(
+        ({ status }) => {
+          if (status === 200) {
+            return `${host}/${filesFolderName}/${key}`
+          }
+          throw new Error('上传失败')
         }
-        throw new Error('上传失败')
-      })
+      )
     }
   })
 

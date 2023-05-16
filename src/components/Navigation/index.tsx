@@ -26,9 +26,12 @@ const menuButtonBoundingClientRect = isWeapp
     }
 
 const stateHeigth =
-  (menuButtonBoundingClientRect.top - statusBarHeight) * 2 + menuButtonBoundingClientRect.height
+  (menuButtonBoundingClientRect.top - statusBarHeight) * 2 +
+  menuButtonBoundingClientRect.height
 
-export const navigationHeight = isWeapp ? stateHeigth + statusBarHeight : stateHeigth
+export const navigationHeight = isWeapp
+  ? stateHeigth + statusBarHeight
+  : stateHeigth
 
 const Component: FC<PropsWithChildren<NavigationProps>> = (props) => {
   const {
@@ -76,7 +79,10 @@ const Component: FC<PropsWithChildren<NavigationProps>> = (props) => {
   }
 
   return (
-    <View className={classnames(styles.Navigation, props.className)} style={rootStyle}>
+    <View
+      className={classnames(styles.Navigation, props.className)}
+      style={rootStyle}
+    >
       <View
         className={className}
         style={{

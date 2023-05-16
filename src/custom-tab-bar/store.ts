@@ -7,7 +7,6 @@ import mine from './images/mine.svg'
 import mineActive from './images//mineActive.svg'
 import beep from './images/beep.svg'
 import beepActive from './images/beepActive.svg'
-import { useState } from 'react'
 import { atom, useAtom } from 'jotai'
 
 export interface TabBarData {
@@ -83,6 +82,7 @@ export default function useTabbar() {
     )
   }
 
+  // eslint-disable-next-line no-unused-vars
   const handleBeforeClick = async (index) => {
     // if ([routeNames.tabBarShopCart].indexOf(data[index].url) !== -1 ) {
     //   Taro.navigateTo({ url: routeNames.auth })
@@ -98,7 +98,10 @@ export default function useTabbar() {
   useDidShow(() => {
     const route = Taro.getCurrentPages()[0].route
     route &&
-      setCurrent(defaultTabbarData.findIndex((value) => value.url === '/' + route) ?? current)
+      setCurrent(
+        defaultTabbarData.findIndex((value) => value.url === '/' + route) ??
+          current
+      )
   })
 
   return {

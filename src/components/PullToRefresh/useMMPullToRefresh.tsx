@@ -1,5 +1,11 @@
+/* eslint-disable no-empty */
+/* eslint-disable no-unused-vars */
 import { useState, useRef, useEffect } from 'react'
-import { IPullRefreshHookRefreshParams, PullToRefreshState, IPullRefreshHookReturn } from './const'
+import {
+  IPullRefreshHookRefreshParams,
+  PullToRefreshState,
+  IPullRefreshHookReturn,
+} from './const'
 
 interface IUseMMPullToRefreshOption<T> {
   /** 默认数据 */
@@ -12,19 +18,25 @@ interface IUseMMPullToRefreshOption<T> {
   initRequest?: boolean
 
   /** 获取数据 */
-  getData: (data: Record<string, any> & { pageNum: number }) => Promise<{ data?: { list?: T[]; isLastPage?: boolean; total?: number } }>
+  getData: (
+    data: Record<string, any> & { pageNum: number }
+  ) => Promise<{ data?: { list?: T[]; isLastPage?: boolean; total?: number } }>
 
   /** 数据格式化 */
   dataFormat?(data: T[]): any[]
 }
 
-export default function usePullToRefresh<T>(config: IUseMMPullToRefreshOption<T>) {
+export default function usePullToRefresh<T>(
+  config: IUseMMPullToRefreshOption<T>
+) {
   const { defaultData = [], params, initRequest = true } = config
 
   const [list, setList] = useState(defaultData)
   const [total, setTotal] = useState(0)
   const [noMore, setNoMore] = useState(false)
-  const [pullToRefreshState, setPullToRefreshState] = useState(PullToRefreshState.none)
+  const [pullToRefreshState, setPullToRefreshState] = useState(
+    PullToRefreshState.none
+  )
   const pageNum = useRef(0)
 
   const isInit = useRef(initRequest)
@@ -44,7 +56,11 @@ export default function usePullToRefresh<T>(config: IUseMMPullToRefreshOption<T>
     }
 
     try {
-      const { data = {} } = await config.getData({ pageNum: pageNum.current, pageSize: 10, ...params })
+      const { data = {} } = await config.getData({
+        pageNum: pageNum.current,
+        pageSize: 10,
+        ...params,
+      })
       // eslint-disable-next-line prefer-const
       let { list: dataList = [], total: totalNum = -1, isLastPage } = data
 
@@ -59,9 +75,14 @@ export default function usePullToRefresh<T>(config: IUseMMPullToRefreshOption<T>
       setTotal(totalNum)
 
       // eslint-disable-next-line no-nested-ternary
-      const no = isLastPage !== undefined ? !!isLastPage : totalNum !== -1 ? dataList.length >= totalNum : true
+      const no =
+        isLastPage !== undefined
+          ? !!isLastPage
+          : totalNum !== -1
+          ? dataList.length >= totalNum
+          : true
       setNoMore(no)
-    } catch (error) { }
+    } catch (error) {}
     setPullToRefreshState(PullToRefreshState.none)
   }
 
@@ -87,12 +108,17 @@ export default function usePullToRefresh<T>(config: IUseMMPullToRefreshOption<T>
    * @param {T} data 需要更新的数据
    * @param {(string | ((item: T, index: number) => boolean))} compare 比对逻辑
    */
-  function updateLisItem(data: T, compare: string | ((item: T, index: number) => boolean)) {
+  function updateLisItem(
+    data: T,
+    compare: string | ((item: T, index: number) => boolean)
+  ) {
     const isString = typeof compare === 'string'
     setList(
       list.map((value, index) => {
         if (isString) {
-          return (value as any)[compare] === (data as any)[compare] ? { ...value, ...data } : value
+          return (value as any)[compare] === (data as any)[compare]
+            ? { ...value, ...data }
+            : value
         }
         return compare(value, index) ? { ...value, ...data } : value
       })
@@ -119,7 +145,7 @@ export default function usePullToRefresh<T>(config: IUseMMPullToRefreshOption<T>
     state: pullToRefreshState,
     noMore,
     onRefresh,
-    onScrollToLower: () => getListData()
+    onScrollToLower: () => getListData(),
   }
 
   const info = {
@@ -136,9 +162,11 @@ export default function usePullToRefresh<T>(config: IUseMMPullToRefreshOption<T>
      * @param index
      * @returns
      */
-    deleteByIndex: (index: number) => setList((pre) => pre.filter((_v, idex) => index !== idex)),
+    deleteByIndex: (index: number) =>
+      setList((pre) => pre.filter((_v, idex) => index !== idex)),
 
-    isEmpty: list.length === 0 && pullToRefreshState === PullToRefreshState.none
+    isEmpty:
+      list.length === 0 && pullToRefreshState === PullToRefreshState.none,
   }
 
   return [info, pullToRefreshProps] as const

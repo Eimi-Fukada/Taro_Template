@@ -1,5 +1,5 @@
-import { ITouchEvent } from "@tarojs/components";
-import { useRef, useState } from "react";
+import { ITouchEvent } from '@tarojs/components'
+import { useRef, useState } from 'react'
 /**
  * 双击hooks
  * @abstract {为了解决双击事件会触发单击事件的问题}
@@ -10,29 +10,29 @@ import { useRef, useState } from "react";
  * 而如果在300ms中没有触发第二次单击事件，则进入定时器触发单击事件
  */
 export function useDoubleClick() {
-  const [lastClickTime, setClickTime] = useState(0);
+  const [lastClickTime, setClickTime] = useState(0)
   /** 用来存储单击事件 */
-  const clickTimeout = useRef() as any;
+  const clickTimeout = useRef() as any
 
   const clearClickTimeout = () => {
     if (clickTimeout) {
-      clearTimeout(clickTimeout.current);
-      clickTimeout.current = null;
+      clearTimeout(clickTimeout.current)
+      clickTimeout.current = null
     }
-  };
+  }
 
   return (click?: Function, doubleClick?: Function) => (e: ITouchEvent) => {
-    const currentTime = e.timeStamp;
-    const gap = currentTime - lastClickTime;
+    const currentTime = e.timeStamp
+    const gap = currentTime - lastClickTime
     if (gap > 0 && gap < 300) {
-      clearClickTimeout();
-      doubleClick && doubleClick(e);
+      clearClickTimeout()
+      doubleClick && doubleClick(e)
     } else {
-      clearClickTimeout();
+      clearClickTimeout()
       clickTimeout.current = setTimeout(() => {
-        click && click(e);
-      }, 200);
+        click && click(e)
+      }, 200)
     }
-    setClickTime(currentTime);
-  };
+    setClickTime(currentTime)
+  }
 }

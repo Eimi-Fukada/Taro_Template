@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export enum TicketStatusEnum {
   /** 未使用未送出 */
   NoUseNoSend = 1,

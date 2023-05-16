@@ -1,11 +1,11 @@
-import React, { memo, FC, useState } from "react";
-import styles from "./index.module.less";
-import { View, Image } from "@tarojs/components";
-import { ImageLoadProps } from "./const";
-import images from "~/assets/icon-image/images";
-import classnames from "classnames";
+import React, { memo, FC, useState } from 'react'
+import styles from './index.module.less'
+import { View, Image } from '@tarojs/components'
+import { ImageLoadProps } from './const'
+import images from '~/assets/icon-image/images'
+import classnames from 'classnames'
 
-const Component: FC<ImageLoadProps> = props => {
+const Component: FC<ImageLoadProps> = (props) => {
   const {
     src,
     defaultSource = images.defaultImage,
@@ -13,10 +13,10 @@ const Component: FC<ImageLoadProps> = props => {
     className,
     style,
     mode,
-    onClick
-  } = props;
+    onClick,
+  } = props
 
-  const [finishFlag, setFinishFlag] = useState(false);
+  const [finishFlag, setFinishFlag] = useState(false)
 
   return (
     <View className={styles.page}>
@@ -39,12 +39,12 @@ const Component: FC<ImageLoadProps> = props => {
         }
         mode={mode}
         lazyLoad={lazyLoad}
-        onClick={event => onClick && onClick(event)}
+        onClick={(event) => onClick && onClick(event)}
         onLoad={() => setFinishFlag(true)}
       />
     </View>
-  );
-};
+  )
+}
 
-const ImageLoad = memo(Component);
-export default ImageLoad;
+const ImageLoad = memo(Component)
+export default ImageLoad

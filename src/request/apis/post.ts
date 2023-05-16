@@ -3,7 +3,11 @@ import makeRequest from '../httpsRequest'
 const method = 'POST'
 
 export default {
-  '/category/list': makeRequest<null, { pageSize: number; pageNum: number }, { name: string }>({
+  '/category/list': makeRequest<
+    null,
+    { pageSize: number; pageNum: number },
+    { name: string }
+  >({
     url: '/category/list',
     method,
   }),

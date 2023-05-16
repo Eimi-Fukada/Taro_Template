@@ -4,12 +4,16 @@ import styles from './index.module.less'
 import { ExploreContext, IndexProps } from './const'
 import Navigation from '~/components/Navigation'
 import PageContainer from '~/layout/PageContainer'
-import { viewModel } from './viewModel'
+import { useViewModel } from './viewModel'
 import Tabs from './tabs'
-import apis from '~/request'
 
 const Component: FC<IndexProps> = () => {
-  const { currentIndex, setCurrentIndex, contextState, dispatch } = viewModel()
+  const {
+    currentIndex,
+    setCurrentIndex,
+    contextState,
+    dispatch,
+  } = useViewModel()
   const templateImage =
     'https://twmw.oss-ap-southeast-1.aliyuncs.com/aliyun-oss/1-2022-12-23-16%3A56%3A47.webp'
 
@@ -19,7 +23,10 @@ const Component: FC<IndexProps> = () => {
       <ExploreContext.Provider value={{ contextState, dispatch }}>
         <View className={styles.page}>
           <View className={styles.tabs}>
-            <Tabs currentIndex={currentIndex} onChange={(index) => setCurrentIndex(index)} />
+            <Tabs
+              currentIndex={currentIndex}
+              onChange={(index) => setCurrentIndex(index)}
+            />
           </View>
           <Image src={templateImage} className={styles.templateImage} />
 

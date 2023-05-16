@@ -4,7 +4,13 @@ import { View, Image } from '@tarojs/components'
 import { AvatarProps, EMMAvatarShape } from './const'
 
 const Component: FC<AvatarProps> = (props) => {
-  const { shape = EMMAvatarShape.square, size = 32, src, avatarStyle, onClick } = props
+  const {
+    shape = EMMAvatarShape.square,
+    size = 32,
+    src,
+    avatarStyle,
+    onClick,
+  } = props
 
   const imgStyle = {
     ...avatarStyle,

@@ -2,12 +2,17 @@
 import { PropsWithChildren, PureComponent } from 'react'
 import { View, ScrollView } from '@tarojs/components'
 import { ITouch, ITouchEvent } from '@tarojs/components/types/common'
+// eslint-disable-next-line no-unused-vars
 import Taro, { getCurrentInstance, nextTick } from '@tarojs/taro'
 import classname from 'classnames'
-import { IPullToRefreshProps, IPullToRefreshState, PullToRefreshState } from './const'
+import {
+  IPullToRefreshProps,
+  IPullToRefreshState,
+  PullToRefreshState,
+} from './const'
 import styles from './index.modules.less'
 import { AtLoadMore } from 'taro-ui'
-import { autobind, debounce, selectRect, throttleLast } from '~/utils/lib'
+import { autobind, debounceFn, selectRect, throttleLast } from '~/utils/lib'
 
 /**
  * @name 下拉刷新
@@ -25,7 +30,10 @@ export default class PullToRefresh extends PureComponent<
     showScrollbar: true,
   }
 
-  static getDerivedStateFromProps(nextProps: IPullToRefreshProps, prevState: IPullToRefreshState) {
+  static getDerivedStateFromProps(
+    nextProps: IPullToRefreshProps,
+    prevState: IPullToRefreshState
+  ) {
     if (nextProps.state === PullToRefreshState.refreshing) {
       return {
         top: PullToRefresh.loadingHeight,
@@ -46,7 +54,10 @@ export default class PullToRefresh extends PureComponent<
     pulling: false,
     scrollViewHeight: 0,
     // eslint-disable-next-line no-invalid-this
-    top: this.props.state === PullToRefreshState.refreshing ? PullToRefresh.loadingHeight : 0,
+    top:
+      this.props.state === PullToRefreshState.refreshing
+        ? PullToRefresh.loadingHeight
+        : 0,
     showNoMoreText: false,
     // scrollTop: undefined
   }
@@ -96,9 +107,12 @@ export default class PullToRefresh extends PureComponent<
 
   render() {
     const { top } = this.state
+    // eslint-disable-next-line no-unused-vars
     const height = PullToRefresh.loadingHeight
     const style =
-      this.state.scrollViewHeight !== 0 ? { height: this.state.scrollViewHeight + 'px' } : {}
+      this.state.scrollViewHeight !== 0
+        ? { height: this.state.scrollViewHeight + 'px' }
+        : {}
     return (
       <View className={classname(styles.PullToRefresh)} style={{ ...style }}>
         <View id="PullToRefreshTop" />
@@ -160,7 +174,7 @@ export default class PullToRefresh extends PureComponent<
     }
   }
 
-  @debounce(100)
+  @debounceFn(100)
   private async reviseScrollTop() {
     Taro.createSelectorQuery()
       .select('#InnerScrollView')
@@ -187,7 +201,8 @@ export default class PullToRefresh extends PureComponent<
          * @abstract H5上不要调用Taro.getSystemInfoSync() 获取可视区域高度，不准确
          * */
         const screenHeight = window.innerHeight
-        scrollViewHeight = screenHeight - topViewRes.top - (bottom ? topViewRes.bottom : 0)
+        scrollViewHeight =
+          screenHeight - topViewRes.top - (bottom ? topViewRes.bottom : 0)
       }
       this.setState({
         scrollViewHeight,
@@ -200,7 +215,12 @@ export default class PullToRefresh extends PureComponent<
   private setNoMore() {
     const { noMoreTextDelay, noMore, state, empty } = this.props
     // 如果状态完毕、非空并且需要渲染更多
-    if (state === PullToRefreshState.none && !empty && noMore && !this.state.showNoMoreText) {
+    if (
+      state === PullToRefreshState.none &&
+      !empty &&
+      noMore &&
+      !this.state.showNoMoreText
+    ) {
       if (noMoreTextDelay) {
         setTimeout(() => {
           this.setState({ showNoMoreText: true })
@@ -241,6 +261,7 @@ export default class PullToRefresh extends PureComponent<
     }
   }
 
+  // eslint-disable-next-line no-unused-vars
   private async onTouchEnd(_event: ITouchEvent) {
     if (!this.canPull) {
       return

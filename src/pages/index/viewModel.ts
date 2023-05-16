@@ -1,7 +1,7 @@
 import { useReducer, useState } from 'react'
 import { InitState } from './const'
 
-export function viewModel() {
+export function useViewModel() {
   /** write your js */
   const [currentIndex, setCurrentIndex] = useState(0)
 

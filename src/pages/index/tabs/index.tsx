@@ -7,6 +7,7 @@ import { ExploreContext } from '../const'
 const Component: FC<TabsProps> = (props) => {
   const { onChange, currentIndex } = props
   const tabs = ['firstTab', 'SecondTab']
+  // eslint-disable-next-line no-unused-vars
   const { contextState, dispatch } = useContext(ExploreContext)
   console.log('contextState', contextState)
 

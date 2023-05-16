@@ -1,23 +1,23 @@
-import { initReactI18next } from "react-i18next";
-import i18n, { use } from "i18next";
-import ZH from "./zh/index.json";
-import EN from "./en/index.json";
+import { initReactI18next } from 'react-i18next'
+import i18n, { use } from 'i18next'
+import ZH from './zh/index.json'
+import EN from './en/index.json'
 
 export const resources = {
   zh: {
-    translation: ZH
+    translation: ZH,
   },
   en: {
-    translation: EN
-  }
-} as const;
+    translation: EN,
+  },
+} as const
 
 use(initReactI18next).init({
-  lng: "zh",
+  lng: 'zh',
   interpolation: {
-    escapeValue: false
+    escapeValue: false,
   },
-  resources
-});
+  resources,
+})
 
-export default i18n;
+export default i18n

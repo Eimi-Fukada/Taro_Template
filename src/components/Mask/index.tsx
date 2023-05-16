@@ -1,11 +1,10 @@
-import React, { memo, FC } from "react";
-import styles from "./index.module.less";
-import { ITouchEvent, View } from "@tarojs/components";
-import { ModalProps } from "./const";
-import Taro from "@tarojs/taro";
-import classnames from "classnames";
+import React, { memo, FC } from 'react'
+import styles from './index.module.less'
+import { ITouchEvent, View } from '@tarojs/components'
+import { ModalProps } from './const'
+import classnames from 'classnames'
 
-const Component: FC<ModalProps> = props => {
+const Component: FC<ModalProps> = (props) => {
   const {
     open,
     onClose,
@@ -13,28 +12,28 @@ const Component: FC<ModalProps> = props => {
     maskClosable = true,
     className,
     style,
-    isMaskOpacity = false
-  } = props;
+    isMaskOpacity = false,
+  } = props
 
   function onTouchMove(event: ITouchEvent) {
-    event.stopPropagation();
+    event.stopPropagation()
   }
 
   function getClassName() {
-    const classNameArray = [styles.Modal, className];
+    const classNameArray = [styles.Modal, className]
     if (!open) {
-      classNameArray.push(styles.Modal__hide);
+      classNameArray.push(styles.Modal__hide)
     }
 
-    classNameArray.push(styles.Modal__center);
+    classNameArray.push(styles.Modal__center)
 
-    return classnames(...classNameArray);
+    return classnames(...classNameArray)
   }
 
   return (
     <View
       className={getClassName()}
-      onTouchMove={event => onTouchMove(event)}
+      onTouchMove={(event) => onTouchMove(event)}
       style={style}
     >
       {mask && (
@@ -50,8 +49,8 @@ const Component: FC<ModalProps> = props => {
         {props.children}
       </View>
     </View>
-  );
-};
+  )
+}
 
-const Mask = memo(Component);
-export default Mask;
+const Mask = memo(Component)
+export default Mask

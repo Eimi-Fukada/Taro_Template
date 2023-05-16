@@ -1,9 +1,13 @@
+/* eslint-disable no-unused-vars */
 import urlArgs from './interceptors'
 import { apiUrl } from '../config'
 import { HttpStatus } from './enum'
 import Taro from '@tarojs/taro'
 
-const interceptors = [urlArgs.request.onFulfilled, Taro.interceptors.timeoutInterceptor]
+const interceptors = [
+  urlArgs.request.onFulfilled,
+  Taro.interceptors.timeoutInterceptor,
+]
 interceptors.forEach((interceptorItem) => Taro.addInterceptor(interceptorItem))
 
 // 定义一个返回对象中code不为200时的错误
@@ -51,13 +55,17 @@ interface MakeRequest {
 
   <Payload, Data, Params>(config: RequestConfig): (
     requestConfig: Partial<Omit<RequestConfig, 'data' | 'params'>> &
-      (Data extends undefined ? { data?: undefined } : { data: Data }) & { params: Params }
+      (Data extends undefined ? { data?: undefined } : { data: Data }) & {
+        params: Params
+      }
   ) => Promise<ResultFormat<Payload>>
 
   <Payload, Data, Params, Args>(config: RequestConfig): (
     requestConfig: Partial<Omit<RequestConfig, 'data' | 'params' | 'args'>> &
       (Data extends undefined ? { data?: undefined } : { data: Data }) &
-      (Params extends undefined ? { params?: undefined } : { params: Params }) & {
+      (Params extends undefined
+        ? { params?: undefined }
+        : { params: Params }) & {
         args: Args
       }
   ) => Promise<ResultFormat<Payload>>

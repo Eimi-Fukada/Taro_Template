@@ -45,15 +45,19 @@
 
 6. 对 Taro.request 进行了二次封装，具体使用可以参考 request 文件下的 REMEAD
 
-7. 内置了页面错误边界和页面 loading
+7. 内置了页面错误边界和页面 loading，处理了 ios 手机上的底部安全区以及 tabbar 页面缺高度的问题
 
-8. 使用了自定义 tabbar
+8. 使用了自定义 tabbar，增加底部安全区
 
 9. 配置了路径别名 ～
 
 10. 默认开启 gzip 对代码进行压缩
 
 11. H5 端打包带上 hash 值，解决缓存问题
+
+12. 使用 husky 规范化 git commit
+
+13. 使用 stylelint 对样式进行检查
 
 ### 内置组件
 

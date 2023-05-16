@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { ReactNode } from 'react'
 
 export interface IPullToRefreshProps {
@@ -115,6 +116,7 @@ export interface IPullRefreshHookRefreshParams {
   clearList?: boolean
 }
 
-export interface IPullRefreshHookReturn extends Omit<IPullToRefreshProps, 'onRefresh'> {
+export interface IPullRefreshHookReturn
+  extends Omit<IPullToRefreshProps, 'onRefresh'> {
   onRefresh: (params?: IPullRefreshHookRefreshParams) => void
 }
