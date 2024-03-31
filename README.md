@@ -121,6 +121,12 @@
 
 2. px2vw 转译行内样式
 
+### Help
+
+1. 页面自适应请使用 postcss-px-to-viewport-8-plugin，原本的 postcss-px-to-viewport 已经被废弃
+
+2. @commitlint/config-conventional 请安装^17.6.3 版本，高版本提交代码的时候会不通过
+
 ## 前端开发规范
 
 > 命名规范

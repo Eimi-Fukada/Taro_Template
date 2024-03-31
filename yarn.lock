@@ -10618,7 +10618,7 @@ oauth-sign@~0.9.0:
   resolved "http://47.103.40.50:3200/oauth-sign/-/oauth-sign-0.9.0.tgz#47a7b016baa68b5fa0ecf3dee08a85c679ac6455"
   integrity sha512-fexhUFFPTGV8ybAtSIGbV6gOkSv8UtRbDBnAyLQw4QPKkgNlsH2ByPGtMUqdWkos6YCRmAqViwgZrJc/mRDzZQ==
 
-object-assign@>=4.0.1, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
+object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "http://47.103.40.50:3200/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
@@ -11498,13 +11498,12 @@ postcss-plugin-constparse@3.5.4:
   dependencies:
     postcss "^6.0.22"
 
-postcss-px-to-viewport@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/postcss-px-to-viewport/-/postcss-px-to-viewport-1.1.1.tgz#a25ca410b553c9892cc8b525cc710da47bf1aa55"
-  integrity sha512-2x9oGnBms+e0cYtBJOZdlwrFg/mLR4P1g2IFu7jYKvnqnH/HLhoKyareW2Q/x4sg0BgklHlP1qeWo2oCyPm8FQ==
+postcss-px-to-viewport-8-plugin@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.npmmirror.com/postcss-px-to-viewport-8-plugin/-/postcss-px-to-viewport-8-plugin-1.2.5.tgz#6efed51b18431317319a32a427e17ebe954e9379"
+  integrity sha512-+yc69+q/euV7iKh5fGXY6C/lpepmVx2DGFHeYj5BpzIFyBBpdACDjZyrZ8AV0kCg+J0bplBv4ZA1QTzgaK0rGg==
   dependencies:
-    object-assign ">=4.0.1"
-    postcss ">=5.0.2"
+    object-assign "^4.1.1"
 
 postcss-pxtransform@3.5.4:
   version "3.5.4"
@@ -11605,15 +11604,6 @@ postcss@8.3.5:
     colorette "^1.2.2"
     nanoid "^3.1.23"
     source-map-js "^0.6.2"
-
-postcss@>=5.0.2:
-  version "8.4.21"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.21.tgz#c639b719a57efc3187b13a1d765675485f4134f4"
-  integrity sha512-tP7u/Sn/dVxK2NnruI4H9BG+x+Wxz6oeZ1cJ8P6G/PZY0IKk4k/63TDsQf2kQq3+qoJeLm2kIBUNlZe3zgb4Zg==
-  dependencies:
-    nanoid "^3.3.4"
-    picocolors "^1.0.0"
-    source-map-js "^1.0.2"
 
 postcss@^6.0.21, postcss@^6.0.22:
   version "6.0.23"
