@@ -5,29 +5,32 @@ const urlArgsHandler = {
   request: {
     onFulfilled: (config: Taro.Chain) => {
       const requestParams = config.requestParams
-      const { data, url, args } = requestParams
-      return config
-        .proceed(requestParams)
-        .then((response: Taro.request.SuccessCallbackResult) => {
-          if (data) {
-            const lostParams: string[] = []
-            const replacedUrl = url!.replace(
-              /\{([^}]+)\}/g,
-              (res, arg: string) => {
-                if (!data[arg]) {
-                  lostParams.push(arg)
-                }
-                // 这里吧args里面的参数拼到路径后面
-                return args[arg] as string
-              }
-            )
-            if (lostParams.length) {
-              return Promise.reject(new Error('在args中找不到对应的路径参数'))
+      const { url, args } = requestParams
+      // 在请求发送前处理URL参数替换
+      if (url && args) {
+        const lostParams: string[] = []
+        const replacedUrl = url.replace(
+          /\{([^}]+)\}/g,
+          (match, arg: string) => {
+            if (!Object.prototype.hasOwnProperty.call(args, arg)) {
+              lostParams.push(arg)
             }
-            return { ...response, url: replacedUrl }
+            // 使用args中的参数替换URL中的占位符
+            return args[arg] !== undefined ? String(args[arg]) : match
           }
-          return response
-        })
+        )
+
+        if (lostParams.length) {
+          return Promise.reject(
+            new Error(`在args中找不到对应的路径参数: ${lostParams.join(', ')}`)
+          )
+        }
+
+        // 更新请求参数中的URL
+        requestParams.url = replacedUrl
+      }
+
+      return config.proceed(requestParams)
     },
   },
 }

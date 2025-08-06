@@ -26,7 +26,7 @@ export interface BackendResultFormat<T = any> {
   msg: string
 }
 export interface ResultFormat<T = any> {
-  data: BackendResultFormat<T> | null
+  data: BackendResultFormat<T> | T | any
   err: string | null | CodeNotZeroError
   response: Taro.request.SuccessCallbackResult | null
 }
@@ -97,6 +97,7 @@ const makeRequest: MakeRequest = <T>(config: RequestConfig) => {
         T
       >> = await Taro.request<BackendResultFormat<T>>(mergedConfig)
       const res = response.data
+      //  const { errMsg, result, resultMessage, ...remainData } = res
       if (res.code !== HttpStatus.success) {
         const error = new CodeNotZeroError(res.code, res.msg)
         return { err: error, data: res.data, response }
