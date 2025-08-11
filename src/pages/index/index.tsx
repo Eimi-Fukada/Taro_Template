@@ -8,12 +8,8 @@ import { useViewModel } from './viewModel'
 import Tabs from './tabs'
 
 const Component: FC<IndexProps> = () => {
-  const {
-    currentIndex,
-    setCurrentIndex,
-    contextState,
-    dispatch,
-  } = useViewModel()
+  const { currentIndex, setCurrentIndex, contextState, dispatch } =
+    useViewModel()
   const templateImage =
     'https://twmw.oss-ap-southeast-1.aliyuncs.com/aliyun-oss/1-2022-12-23-16%3A56%3A47.webp'
 
@@ -32,6 +28,7 @@ const Component: FC<IndexProps> = () => {
 
           <View className={styles.textBox}>
             <Text className={styles.text}>Hello world!</Text>
+            <Text className="text-[red] text-[48px]">Hello world!</Text>
           </View>
           <Button className={styles.btn}>Click Me</Button>
         </View>

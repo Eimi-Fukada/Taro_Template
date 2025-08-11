@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { initReactI18next } from 'react-i18next'
 import i18n, { use } from 'i18next'
 import ZH from './zh/index.json'

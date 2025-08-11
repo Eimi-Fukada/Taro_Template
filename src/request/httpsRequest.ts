@@ -45,22 +45,28 @@ export interface RequestConfig extends Taro.request.Option<any, any> {
  *    Args：用于定义存放路径参数的属性args的数据类型
  */
 interface MakeRequest {
-  <Payload = any>(config: RequestConfig): (
-    requestConfig?: Partial<RequestConfig>
-  ) => Promise<ResultFormat<Payload>>
+  <Payload = any>(
+    config: RequestConfig
+  ): (requestConfig?: Partial<RequestConfig>) => Promise<ResultFormat<Payload>>
 
-  <Payload, Data>(config: RequestConfig): (
+  <Payload, Data>(
+    config: RequestConfig
+  ): (
     requestConfig: Partial<Omit<RequestConfig, 'data'>> & { data: Data }
   ) => Promise<ResultFormat<Payload>>
 
-  <Payload, Data, Params>(config: RequestConfig): (
+  <Payload, Data, Params>(
+    config: RequestConfig
+  ): (
     requestConfig: Partial<Omit<RequestConfig, 'data' | 'params'>> &
       (Data extends undefined ? { data?: undefined } : { data: Data }) & {
         params: Params
       }
   ) => Promise<ResultFormat<Payload>>
 
-  <Payload, Data, Params, Args>(config: RequestConfig): (
+  <Payload, Data, Params, Args>(
+    config: RequestConfig
+  ): (
     requestConfig: Partial<Omit<RequestConfig, 'data' | 'params' | 'args'>> &
       (Data extends undefined ? { data?: undefined } : { data: Data }) &
       (Params extends undefined
@@ -93,9 +99,9 @@ const makeRequest: MakeRequest = <T>(config: RequestConfig) => {
     }
     // 统一处理返回类型
     try {
-      const response: Taro.request.SuccessCallbackResult<BackendResultFormat<
-        T
-      >> = await Taro.request<BackendResultFormat<T>>(mergedConfig)
+      const response: Taro.request.SuccessCallbackResult<
+        BackendResultFormat<T>
+      > = await Taro.request<BackendResultFormat<T>>(mergedConfig)
       const res = response.data
       //  const { errMsg, result, resultMessage, ...remainData } = res
       if (res.code !== HttpStatus.success) {

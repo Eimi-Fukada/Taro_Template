@@ -79,8 +79,8 @@ export default function usePullToRefresh<T>(
         isLastPage !== undefined
           ? !!isLastPage
           : totalNum !== -1
-          ? dataList.length >= totalNum
-          : true
+            ? dataList.length >= totalNum
+            : true
       setNoMore(no)
     } catch (error) {}
     setPullToRefreshState(PullToRefreshState.none)
@@ -131,7 +131,7 @@ export default function usePullToRefresh<T>(
     } else {
       getListData()
     }
-  }, [])
+  }, [getListData])
 
   function onRefresh(refreshParams?: IPullRefreshHookRefreshParams) {
     if (refreshParams?.clearList) {

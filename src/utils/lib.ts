@@ -14,7 +14,7 @@ export function debounceFn(time: number = 200): MethodDecorator {
   let st
   return (_target, _name, descriptor: any) => {
     const fun = descriptor.value
-    descriptor.value = function(...args) {
+    descriptor.value = function (...args) {
       clearTimeout(st)
       st = setTimeout(() => {
         fun.apply(this, args)
@@ -36,7 +36,7 @@ export function throttleLast(time: number = 200): MethodDecorator {
   let stLast
   return (_target, _name, descriptor: any) => {
     const fun = descriptor.value
-    descriptor.value = function(...args) {
+    descriptor.value = function (...args) {
       const now = new Date()
       clearTimeout(stLast)
       if (now.getTime() - date.getTime() > time) {
@@ -59,7 +59,7 @@ export function throttleLast(time: number = 200): MethodDecorator {
  */
 export function debounce<T extends (...args: any) => any>(fn: T, delay = 300) {
   let timer = null as any
-  return function(this: unknown, ...args: Parameters<T>) {
+  return function (this: unknown, ...args: Parameters<T>) {
     return new Promise<ReturnType<T>>((resolve) => {
       clearTimeout(timer)
       timer = setTimeout(() => {
@@ -81,7 +81,7 @@ export function throttle<T extends (...args: any) => any>(
 ) {
   let enterTime = 0 // 触发的时间
   const gapTime = interval // 间隔时间，如果interval不传，则默认300ms
-  return function(this: unknown, ...args: Parameters<T>) {
+  return function (this: unknown, ...args: Parameters<T>) {
     const backTime = new Date() as any // 第一次函数return即触发的时间
     if (backTime - enterTime > gapTime) {
       Reflect.apply(fn, this, args)

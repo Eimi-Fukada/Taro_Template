@@ -65,13 +65,13 @@ export const CopyText = (text: string) => {
     .writeText(text)
     .then(
       () =>
-        function() {
+        function () {
           document.body.removeChild(selection)
         }
     )
     .catch(
       (error) =>
-        function() {
+        function () {
           document.body.removeChild(selection)
           console.log('error', error)
         }

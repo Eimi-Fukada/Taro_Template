@@ -23,5 +23,18 @@ module.exports = {
     'no-empty-source': null,
     // 禁止缺少文件末尾的换行符
     'no-missing-end-of-source-newline': null,
+    // 允许 @tailwind at 规则
+    'at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: [
+          'tailwind',
+          'apply',
+          'variants',
+          'responsive',
+          'screen',
+        ],
+      },
+    ],
   },
 }

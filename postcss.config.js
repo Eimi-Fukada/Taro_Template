@@ -1,5 +1,18 @@
 module.exports = {
   plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+    // 将rem转为px
+    'postcss-rem-to-responsive-pixel': {
+      // 16 意味着 1rem = 16px
+      rootValue: 16,
+      // 默认所有属性都转化
+      propList: ['*'],
+      // 转化的单位,可以变成 px / rpx
+      transformUnit: 'px',
+      // postcss-rem-to-responsive-pixel@6 版本添加了 disabled 参数，用来禁止插件的转化
+      // disabled: process.env.TARO_ENV === 'h5' || process.env.TARO_ENV === 'rn'
+    },
     'postcss-px-to-viewport-8-plugin': {
       unitToConvert: 'px', //需要转换的单位，默认为"px"
       viewportWidth: 750, // 视窗的宽度，对应设计稿的宽度

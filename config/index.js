@@ -1,16 +1,24 @@
 const path = require('path')
+const { UnifiedWebpackPluginV5 } = require('weapp-tailwindcss/webpack')
 
 const config = {
   projectName: 'taro-template',
   date: '2022-8-24',
-  designWidth: 750,
+  designWidth(input) {
+    // 配置 NutUI 375 尺寸
+    if (input?.file?.replace(/\\+/g, '/').indexOf('@nutui') > -1) {
+      return 375
+    }
+    // 全局使用 Taro 默认的 750 尺寸
+    return 750
+  },
   deviceRatio: {
     750: 1 / 2,
     375: 1,
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  plugins: [],
+  plugins: ['@tarojs/plugin-html'],
   // 配置全局环境变量
   defineConstants: {
     REACT_APP_ENV: JSON.stringify(process.env.REACT_APP_ENV),
@@ -20,7 +28,12 @@ const config = {
     options: {},
   },
   framework: 'react',
-  compiler: 'webpack5',
+  compiler: {
+    type: 'webpack5',
+    prebundle: {
+      exclude: ['@nutui/nutui-react-taro', '@nutui/icons-react-taro'],
+    },
+  },
   cache: {
     enable: true, // Webpack 持久化缓存配置，建议开启。默认配置请参考：https://docs.taro.zone/docs/config-detail#cache
   },
@@ -28,7 +41,7 @@ const config = {
     postcss: {
       pxtransform: {
         enable: true,
-        config: {},
+        config: { minPixelValue: 0, onePxTransform: true },
       },
       url: {
         enable: true,
@@ -46,6 +59,23 @@ const config = {
     },
     alias: {
       '~': path.resolve(__dirname, '../', 'src'),
+    },
+    webpackChain(chain, webpack) {
+      chain.merge({
+        plugin: {
+          install: {
+            plugin: UnifiedWebpackPluginV5,
+            args: [
+              {
+                appType: 'taro',
+                // 下面个配置，会开启 rem -> rpx 的转化
+                // rem2rpx: true,
+                injectAdditionalCssVarScope: true,
+              },
+            ],
+          },
+        },
+      })
     },
   },
   h5: {
@@ -65,9 +95,14 @@ const config = {
       chunkFilename: 'css/[name].[chunkhash].css',
     },
     postcss: {
+      pxtransform: {
+        enable: true,
+        config: { minPixelValue: 0, onePxTransform: true, baseFontSize: 10 },
+      },
       autoprefixer: {
         enable: true,
-        config: {},
+        // 包含 `nut-` 的类名选择器中的 px 单位不会被解析
+        config: { selectorBlackList: ['nut-'] },
       },
       cssModules: {
         enable: true, // 默认为 false，如需使用 css modules 功能，则设为 true
@@ -97,7 +132,7 @@ const config = {
   },
 }
 
-module.exports = function(merge) {
+module.exports = function (merge) {
   if (process.env.NODE_ENV === 'development') {
     return merge({}, config, require('./dev'))
   }
